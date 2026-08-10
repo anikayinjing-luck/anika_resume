@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>尹静 - 个人简历</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+    background: #e9edf2; color: #333;
+  }
+
+  /* ===== 工具栏（打印时隐藏） ===== */
+  .toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 99;
+    background: #1f3864; color: #fff;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  }
+  .toolbar button {
+    background: #fff; color: #1f3864; border: none; border-radius: 4px;
+    padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .toolbar button:hover { background: #dce6f5; }
+  .toolbar-tip { font-size: 12px; opacity: .85; }
+
+  /* ===== 页面 ===== */
+  .page {
+    width: 210mm; min-height: 297mm;
+    margin: 72px auto 40px;
+    background: #fff;
+    padding: 16mm 18mm;
+    box-shadow: 0 4px 24px rgba(0,0,0,.12);
+  }
+
+  /* --- 头部样式修改 --- */
+  .header {
+    border-bottom: 3px solid #1f3864;
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* 头部容器，用于排版文字和照片 */
+  .header-container {
+    display: flex;
+    justify-content: space-between; /* 文字居左，照片居右 */
+    align-items: flex-start; /* 顶部对齐 */
+  }
+
+  /* 文字信息区域 */
+  .info-text {
+    text-align: left; /* 文字改为居左对齐 */
+    flex: 1; /* 占据剩余空间 */
+  }
+
+  h1 { font-size: 30px; color: #1f3864; letter-spacing: 8px; margin-bottom: 10px; }
+  .info-line { font-size: 13px; color: #555; line-height: 1.8; }
+  .info-line.sub { font-size: 12.5px; color: #777; }
+
+  /* 照片容器样式 */
+  .photo-box {
+    width: 100px;
+    height: 125px;
+    margin-left: 20px;
+    border: 1px solid #cfd8e3;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* 照片本身样式 */
+  .photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* --- 原有样式 --- */
+  h2 {
+    font-size: 17px; color: #1f3864;
+    border-left: 5px solid #1f3864; padding-left: 10px;
+    margin: 24px 0 12px; letter-spacing: 1px;
+  }
+  .group-title { font-size: 14.5px; color: #1f3864; font-weight: 700; margin: 14px 0 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 6px; }
+  th, td { border: 1px solid #cfd8e3; padding: 8px 10px; text-align: left; }
+  th { background: #eef2f7; color: #1f3864; font-weight: 600; }
+  td { color: #333; }
+
+  ol.duty-list { margin: 0 0 10px 20px; }
+  ol.duty-list li { font-size: 13px; line-height: 1.75; margin-bottom: 6px; text-align: justify; }
+  ol.duty-list li b { color: #1f3864; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span {
+    background: #eef2f7; border: 1px solid #cfd8e3; color: #1f3864;
+    border-radius: 4px; padding: 5px 14px; font-size: 13px;
+  }
+
+  .self-eval { font-size: 13px; line-height: 1.85; text-align: justify; }
+
+  /* ===== 编辑模式提示 ===== */
+  body.editing [contenteditable] {
+    outline: 1px dashed #5b9bd5; outline-offset: 2px; border-radius: 2px; cursor: text;
+  }
+
+  /* ===== 打印 / 导出 PDF ===== */
+  @page { size: A4; margin: 14mm 16mm; }
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none !important; }
+    .page {
+      width: auto; min-height: auto; margin: 0; padding: 0; box-shadow: none;
+    }
+    body.editing [contenteditable] { outline: none; }
+    h2, h3, .group-title, table, li, .tags, .self-eval { page-break-inside: avoid; }
+    h2, h3, .group-title { page-break-after: avoid; }
+    /* 打印时确保边框和背景色显示 */
+    .photo-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button id="editBtn" onclick="toggleEdit()">进入编辑</button>
+  <button onclick="printResume()">打印 / 导出 PDF</button>
+  <span class="toolbar-tip">点击「进入编辑」后可直接修改文字；打印时工具栏自动隐藏</span>
+</div>
+
+<div class="page" id="resume">
+
+  <!-- 基本信息 -->
+  <header class="header">
+    <div class="header-container">
+      <div class="info-text">
+        <h1 contenteditable="false">尹静</h1>
+        <p class="info-line" contenteditable="false">女&nbsp;|&nbsp;26岁&nbsp;|&nbsp;汉族&nbsp;|&nbsp;未婚&nbsp;|&nbsp;全日制本科</p>
+        <p class="info-line sub" contenteditable="false">籍贯：湖南永州&nbsp;&nbsp;|&nbsp;&nbsp;出生年月：2000.06</p>
+        <p class="info-line sub" contenteditable="false">毕业院校：湖南财政经济学院（2023年6月毕业）</p>
+      </div>
+
+      <!-- 照片区域 -->
+      <div class="photo-box">
+        <img src="yinjing.jpg" alt="个人照片">
+      </div>
+    </div>
+  </header>
+
+  <!-- 工作经验 -->
+  <section>
+    <h2 contenteditable="false">工作经验</h2>
+
+    <table>
+      <tr><th>公司</th><th>职位</th><th>时间</th></tr>
+      <tr>
+        <td contenteditable="false">深圳市易优生活有限公司</td>
+        <td contenteditable="false">DTC品牌独立站运营</td>
+        <td contenteditable="false">2024.07 ～ 2026.05</td>
+      </tr>
+    </table>
+
+    <h3 class="group-title" contenteditable="false">网站运营</h3>
+    <ol class="duty-list">
+      <li contenteditable="false"><b>网站日常全盘管理：</b>负责品牌 Shopify 独立站整体运营与维护，包括商品上架、活动配置、页面更新、库存监控及折扣策略执行，保障站点稳定性。</li>
+      <li contenteditable="false"><b>整合营销大促策划：</b>负责年度、月度 S级/A级 大促（如品牌7周年庆等）的策划与执行，统筹 Banner 视觉、落地页搭建及全渠道流量协同，实现大促期间销售额爆发式增长。</li>
+      <li contenteditable="false"><b>网站页面优化：</b>主导首页、产品页及活动页改版优化，结合用户行为数据分析用户流失节点，通过优化产品卖点展示、购买引导、FAQ内容及页面结构，提升用户购物体验，推动全站转化率环比增长28%。</li>
+      <li contenteditable="false"><b>数据分析：</b>熟练运用GA4监控网站流量与分析用户行为路径，定期输出运营周报/月报，为活动策划和页面优化提供数据依据。</li>
+      <li contenteditable="false"><b>AI 工具深度赋能业务：</b>构建高效 Prompt 库，熟练运用 ChatGPT/Claude/Gemini 等 AI 工具深度赋能 EDM 营销文案、地道海外产品 Description、SEO 博客及 FAQ 搭建，大幅提升内容产出质感与人效。</li>
+      <li contenteditable="false"><b>跨部门沟通：</b>跨部门协同客服、设计、产品、物流及技术团队推进项目落地，协调网站优化、活动上线、产品上新及用户体验改进，确保运营需求高效执行。主导运营需求与技术开发对接，输出需求文档并跟进开发进度，推动网站功能优化、页面体验升级及系统问题修复，提高项目交付效率和运营响应速度。</li>
+      <li contenteditable="false"><b>项目经验：</b>高客单价（&gt;$300）新品 GTM 整合营销全周期操盘——独立负责多款新品上市的 GTM全周期操盘，其中针对 2 个 &gt;$300 的高客单价单品，通过"首发前一周全渠道强预热"策略破冰；搭建专属预热落地页，联合 EDM、品牌社媒、网站 Banner 同步造势，通过"限时早鸟代金券"机制锁定首批精准意向客群。项目成果：成功跑通高客单价产品的"预热-蓄水-转化"闭环，确保新品首发期达成高效转化，新品预热页最高订阅率达45%。</li>
+    </ol>
+
+    <h3 class="group-title" contenteditable="false">EDM 推广</h3>
+    <ol class="duty-list">
+      <li contenteditable="false"><b>用户分层体系搭建：</b>基于用户购买频次、消费金额、互动行为等维度建立RFM用户分层模型，将用户划分为VIP高价值用户、复购用户、潜力新客等核心群体。针对不同生命周期阶段制定差异化营销策略，包括新品推荐、复购激活、会员权益、沉睡召回等。</li>
+      <li contenteditable="false"><b>生命周期自动化运营优化：</b>规划用户生命周期触达路径，搭建并优化Welcome Flow、Abandoned Cart Flow、Post Purchase Flow、Win-back Flow等自动化邮件流程。根据用户行为触发不同营销内容，提高新客首单转化及老客复购效率。</li>
+      <li contenteditable="false"><b>Campaign策略优化：</b>根据用户分层制定月度Campaign营销计划，结合新品发布、节日节点及用户兴趣偏好进行精准触达。通过邮件标题、发送时间、优惠机制、内容结构等维度进行A/B测试，持续优化邮件效果。</li>
+      <li contenteditable="false"><b>项目经验：</b>月均执行15+场CRM Campaign，推动EDM渠道营收贡献率稳定达到25%以上。通过用户精细化分层，提高不同生命周期用户触达效率，降低无效发送及用户流失。建立从用户获取、激活、转化到复购的完整CRM运营体系。</li>
+    </ol>
+
+    <table style="margin-top:12px;">
+      <tr>
+        <td contenteditable="false">深圳市特立生活用品有限公司</td>
+        <td contenteditable="false">外贸业务员</td>
+        <td contenteditable="false">2023.07 ～ 2024.06</td>
+      </tr>
+    </table>
+    <ol class="duty-list" style="margin-top:8px;">
+      <li contenteditable="false"><b>网站运营：</b>参与品牌自建站从0到1的搭建与技术维护，熟练运用 WordPress + WooCommerce 框架进行多 SKU 的精细化规范上架与变体配置；运用 Elementor 插件进行产品详情页（PDP）及活动落地页的模块化搭建与视觉重构，专注于提升移动端响应式体验与网页加载速度，为后期精细化运营打下坚实的技术底层。</li>
+      <li contenteditable="false"><b>业务开展：</b>熟练运用Facebook、Instagram、谷歌等平台，成功开发多个潜在客户。在阿里巴巴国际站上传600+产品链接，其中5款成为爆品，实力优品率超30%。在阿里巴巴国际站上进行每日工位直播，实现稳定销售。</li>
+      <li contenteditable="false"><b>沟通协调与物流跟进：</b>负责与海运、货代等相关方进行沟通，确保货物按时出货，保障客户订单的顺利交付。与设计团队紧密合作，就产品包装设计、logo修改等事宜进行有效沟通，提升了产品的市场竞争力。</li>
+      <li contenteditable="false"><b>客户接待与品牌展示：</b>热情接待来访的海外客户，带领客户参观工厂，展示公司实力和产品优势，增强了客户对公司的信任和合作意愿。</li>
+    </ol>
+  </section>
+
+  <!-- 技能证书 -->
+  <section>
+    <h2 contenteditable="false">技能证书</h2>
+    <div class="tags">
+      <span contenteditable="false">英语四级</span>
+      <span contenteditable="false">英语四级</span>
+      <span contenteditable="false">普通话二级甲等</span>
+      <span contenteditable="false">教师资格证</span>
+    </div>
+  </section>
+
+  <!-- 教育背景 -->
+  <section>
+    <h2 contenteditable="false">教育背景</h2>
+    <table>
+      <tr><th>学校</th><th>专业</th><th>学历</th><th>学制</th><th>毕业时间</th></tr>
+      <tr><td contenteditable="false">湖南财政经济学院</td><td contenteditable="false">国际经济与贸易</td><td contenteditable="false">本科</td><td contenteditable="false">全日制</td><td contenteditable="false">2023年6月</td></tr>
+    </table>
+  </section>
+
+  <!-- 自我评价（已移至教育背景下方） -->
+  <section>
+    <h2 contenteditable="false">自我评价</h2>
+    <p class="self-eval" contenteditable="false">2年 跨境电商细分品类头部DTC品牌，精通网站日常全盘运营、整合大促活动策划、页面体验优化及多维数据分析。擅长新品首发的整合营销，具备用户精细化留存经验；独立负责 EDM 体系构建，月均操盘 15+ 营销活动，EDM 渠道营收贡献率稳定在 25% 以上。具备极强的技术敏锐度，熟练掌握 GA4 数据漏斗分析、网页优化，并高效运用 ChatGPT 等 AI 工具实现跨团队、跨部门降本增效。</p>
+  </section>
+
+</div>
+
+<script>
+  function toggleEdit() {
+    var editing = document.body.classList.toggle('editing');
+    var els = document.querySelectorAll('.page [contenteditable]');
+    for (var i = 0; i < els.length; i++) {
+      els[i].contentEditable = editing ? 'true' : 'false';
+    }
+    document.getElementById('editBtn').textContent = editing ? '退出编辑' : '进入编辑';
+  }
+  function printResume() {
+    window.print();
+  }
+</script>
+
+</body>
+</html>
